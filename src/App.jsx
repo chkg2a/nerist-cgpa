@@ -1,37 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import subjectsData from "./subjects.json";
-
-const weightDistribution = {
-  "2-0-2": [67, 33],
-  "2-0-4": [50, 50],
-  "3-0-2": [75, 25],
-  "4-0-2": [80, 20],
-  "3-1-2": [80, 20],
-  "2-0-6": [40, 60],
-  "1-0-4": [0, 100],
-  "3-1-0": [100, 0],
-  "3-0-4": [60, 40],
-};
-
-const gradesScale = {
-  S: 10,
-  A: 9,
-  B: 8,
-  C: 7,
-  D: 6,
-  E: 5,
-  F: 0,
-  I: 0,
-};
-
-const maxValues = {
-  MidSemExam: 30,
-  EndSemExam: 50,
-  Quiz: 10,
-  TeacherEval: 10,
-  PracExam: 50,
-};
+import DisciplineSelector from "./components/DisciplineSelector";
+import SubjectsList from "./components/SubjectsList";
+import ResultsDisplay from "./components/ResultsDisplay";
+import { FaGithub } from "react-icons/fa6";
+import { weightDistribution, gradesScale, maxValues } from "./utils/constants";
 
 const App = () => {
   const [discipline, setDiscipline] = useState("");
@@ -98,32 +72,25 @@ const App = () => {
     const finalMarks = {};
 
     Object.entries(subjects).forEach(([subject, details]) => {
-      if (!details) return; // Skip if subject details are undefined
-
       const [theoryWeight, pracWeight] = weightDistribution[
         details["grade-point"]
       ] || [0, 0];
 
-      // Calculate theory marks: include MidSem Exam, EndSem Exam, Quiz, and Teacher Eval
       const theoryMarks =
         (marks.MidSemExam[subject] || 0) +
         (marks.EndSemExam[subject] || 0) +
         (marks.Quiz[subject] || 0) +
         (marks.TeacherEval[subject] || 0);
 
-      // Normalize theory marks based on the max possible values
       const totalTheoryMax =
         maxValues.MidSemExam +
         maxValues.EndSemExam +
         maxValues.Quiz +
         maxValues.TeacherEval;
       const normalizedTheoryMarks = (theoryMarks / totalTheoryMax) * 100;
-
-      // Calculate practical marks (if applicable)
       const pracMarks = marks.PracExam[subject] || 0;
       const normalizedPracMarks = (pracMarks / maxValues.PracExam) * 100;
 
-      // Final component calculation
       const theoryComponent = (normalizedTheoryMarks * theoryWeight) / 100;
       const pracComponent = (normalizedPracMarks * pracWeight) / 100;
 
@@ -131,26 +98,17 @@ const App = () => {
     });
 
     setFinalGrades(finalMarks);
+    calculateCGPA();
   };
-
-  useEffect(() => {
-    if (Object.keys(finalGrades).length > 0) {
-      calculateCGPA();
-    }
-  }, [finalGrades]);
 
   const calculateCGPA = () => {
     let totalPoints = 0,
       totalWeights = 0;
 
     Object.entries(finalGrades).forEach(([subject, mark]) => {
-      const [theoryWeight, pracWeight] = weightDistribution[
-        subjects[subject]?.["grade-point"]
-      ] || [0, 0];
       const weight = subjects[subject]?.weight || 0;
       let grade;
 
-      // Determine the grade based on the final marks
       if (mark > 83) grade = "S";
       else if (mark > 73) grade = "A";
       else if (mark > 63) grade = "B";
@@ -163,10 +121,15 @@ const App = () => {
       totalWeights += weight;
     });
 
-    // Calculate CGPA based on total points and total weight
-    const calculatedCGPA = (totalPoints / totalWeights).toFixed(2);
+    const calculatedCGPA = totalWeights
+      ? (totalPoints / totalWeights).toFixed(2)
+      : 0;
     setCgpa(calculatedCGPA);
-    saveResults(calculatedCGPA);
+
+    // Save results only if CGPA is valid
+    if (calculatedCGPA) {
+      saveResults(calculatedCGPA);
+    }
   };
 
   const saveResults = (calculatedCGPA) => {
@@ -181,124 +144,37 @@ const App = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="w-screen container mt-4">
       <h1 className="text-center">Grade Calculator</h1>
-      <div className="mb-3">
-        <label>Discipline</label>
-        <select
-          className="form-control"
-          value={discipline}
-          onChange={(e) => setDiscipline(e.target.value)}
+      <div className="flex justify-center items-center">
+        <a
+          href="https://github.com/chkg2a/nerist-cgpa"
+          className="md:absolute top-10 right-10 text-black no-underline hover:text-black focus:text-black active:text-black text-6xl"
         >
-          <option value="">Select Discipline</option>
-          {Object.keys(subjectsData).map((d) => (
-            <option key={d} value={d}>
-              {d}
-            </option>
-          ))}
-        </select>
+          <FaGithub />
+        </a>
       </div>
-      <div className="mb-3">
-        <label>Semester</label>
-        <select
-          className="form-control"
-          value={semester}
-          onChange={(e) => setSemester(e.target.value)}
-        >
-          <option value="">Select Semester</option>
-          {Object.keys(subjectsData[discipline] || {}).map((sem) => (
-            <option key={sem} value={sem}>
-              Semester {sem}
-            </option>
-          ))}
-        </select>
+      <DisciplineSelector
+        discipline={discipline}
+        semester={semester}
+        setDiscipline={setDiscipline}
+        setSemester={setSemester}
+        subjectsData={subjectsData}
+      />
+      <SubjectsList
+        subjects={subjects}
+        marks={marks}
+        handleInputChange={handleInputChange}
+      />
+      <div className="mt-3">
+        <button onClick={fillMaxMarks} className="btn btn-secondary mr-3">
+          Max
+        </button>
+        <button onClick={calculateFinalMarks} className="btn btn-primary">
+          Calculate
+        </button>
       </div>
-
-      <div className="row">
-        {Object.keys(subjects).map((subject) => (
-          <div key={subject} className="col-md-4 mb-3">
-            <h5>{subject}</h5>
-            <input
-              type="number"
-              placeholder="MidSem Exam"
-              min="0"
-              max="30"
-              value={marks.MidSemExam[subject] || ""}
-              onChange={(e) => handleInputChange(e, "MidSemExam", subject)}
-              className="form-control mb-2"
-            />
-            <input
-              type="number"
-              placeholder="EndSem Exam"
-              min="0"
-              max="50"
-              value={marks.EndSemExam[subject] || ""}
-              onChange={(e) => handleInputChange(e, "EndSemExam", subject)}
-              className="form-control mb-2"
-            />
-            <input
-              type="number"
-              placeholder="Quiz"
-              min="0"
-              max="10"
-              value={marks.Quiz[subject] || ""}
-              onChange={(e) => handleInputChange(e, "Quiz", subject)}
-              className="form-control mb-2"
-            />
-            <input
-              type="number"
-              placeholder="Teacher Eval"
-              min="0"
-              max="10"
-              value={marks.TeacherEval[subject] || ""}
-              onChange={(e) => handleInputChange(e, "TeacherEval", subject)}
-              className="form-control mb-2"
-            />
-            {subjects[subject]?.["grade-point"]?.split("-")[2] !== "0" && (
-              <input
-                type="number"
-                placeholder="Practical Exam"
-                min="0"
-                max="50"
-                value={marks.PracExam[subject] || ""}
-                onChange={(e) => handleInputChange(e, "PracExam", subject)}
-                className="form-control mb-2"
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      <button onClick={fillMaxMarks} className="btn btn-secondary mr-3">
-        Max
-      </button>
-      <button onClick={calculateFinalMarks} className="btn btn-primary">
-        Calculate
-      </button>
-      {cgpa && (
-        <div className="mt-4">
-          <h2>Results</h2>
-          {Object.entries(finalGrades).map(([subject, mark]) => {
-            let grade;
-            let gradeColor;
-            if (mark > 83) grade = "S";
-            else if (mark > 73) grade = "A";
-            else if (mark > 63) grade = "B";
-            else if (mark > 53) grade = "C";
-            else if (mark > 43) grade = "D";
-            else if (mark > 33) grade = "E";
-            else grade = "F"; // Mark less than or equal to 33 gets F
-
-            return (
-              <p key={subject}>
-                {subject}: {mark} ({grade})
-              </p>
-            );
-          })}
-          <h4>CGPA: {cgpa}</h4>
-          <h4>Percentage: {(cgpa * 10 - 5).toFixed(2)}%</h4>
-        </div>
-      )}
+      {cgpa && <ResultsDisplay finalGrades={finalGrades} cgpa={cgpa} />}
     </div>
   );
 };
