@@ -1,15 +1,22 @@
 {
   "Computer Science Engineering": {
     "1": {
-      "Maths": { "weight": 4, "grade-point": "3-1-0" },
-      "Programming": { "weight": 5, "grade-point": "3-0-4" }
+      "Quantum Mechanics": { "weight": 5, "grade-point": "4-0-2" },
+      "Mathematics - I": { "weight": 4, "grade-point": "3-1-0" },
+      "Basic Electrical Engineering": { "weight": 5, "grade-point": "3-1-2" },
+      "Engineering Graphics and Design": { "weight": 3, "grade-point": "0-0-6" },
+      "Biology": { "weight": 3, "grade-point": "2-1-0" }
     },
     "2": {
-      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
-      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
+      "Engineering Chemistry-A": { "weight": 5, "grade-point": "3-1-2" },
+      "Mathematics - II": { "weight": 4, "grade-point": "3-1-0" },
+      "Programming for Problem Solving": { "weight": 4, "grade-point": "3-0-2" },
+      "Workshop Practice": { "weight": 3, "grade-point": "0-0-6" },
+      "Communication Skills": { "weight": 3, "grade-point": "2-0-2" },
+      "Environmental Science (Audit)": { "weight": 0, "grade-point": "2-0-0" }
     },
     "3": {
-      "Maths": { "weight": 4, "grade-point": "3-1-0" },
+      "Mathematics - III": { "weight": 4, "grade-point": "3-1-0" },
       "Data Structures & Algorithms": { "weight": 5, "grade-point": "3-0-4" },
       "Programming Tools and Techniques": { "weight": 4, "grade-point": "2-0-4" },
       "Basic Electronics and Engineering": { "weight": 4, "grade-point": "3-0-2" },
@@ -17,22 +24,45 @@
       "Engineering Mechanics": { "weight": 4, "grade-point": "3-1-0" }
     },
     "4": {
-      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
-      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
-    },
-    "5": {
-      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
-      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
-    },
-    "6": {
-      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
-      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
+      "Entrepreneurship and Startups": { "weight": 3, "grade-point": "3-0-0" },
+      "Indian Constitution (Audit)": { "weight": 0, "grade-point": "2-0-0" },
+      "Discrete Mathematics": { "weight": 4, "grade-point": "3-1-0" },
+      "Computer Organization and Architecture": { "weight": 5, "grade-point": "3-1-2" },
+      "Programming in Java": { "weight": 4, "grade-point": "2-0-4" },
+      "Design and Analysis of Algorithms": { "weight": 5, "grade-point": "3-0-4" }
     }
   },
-  "Mechanical Engineering": {
-    "1": {
-      "Mechanics": { "weight": 4, "grade-point": "3-1-0" },
-      "Thermodynamics": { "weight": 4, "grade-point": "3-1-0" }
+  "Electronics and Communication Engineering": {
+    "3": {
+      "Mathematics - III": { "weight": 4, "grade-point": "3-1-0" },
+      "Engineering Mechanics": { "weight": 4, "grade-point": "3-1-0" },
+      "Basic Electronics and Engineering": { "weight": 4, "grade-point": "3-0-2" },
+      "Electronics Instrumentation and Measurements": { "weight": 4, "grade-point": "3-0-2" },
+      "Digital Electronics": { "weight": 4, "grade-point": "2-1-2" },
+      "Signals and Systems": { "weight": 4, "grade-point": "3-0-2" }
+    }
+  },
+  "Electrical Engineering": {
+    "3": {
+      "Mathematics - III": { "weight": 4, "grade-point": "3-1-0" },
+      "Engineering Mechanics": { "weight": 4, "grade-point": "3-1-0" },
+      "Basic Electronics and Engineering": { "weight": 4, "grade-point": "3-0-2" },
+      "Analog Electronic Circuits": { "weight": 4, "grade-point": "3-0-2" },
+      "Electrical Circuit Analysis": { "weight": 4, "grade-point": "3-1-0" },
+      "Electrical Machines - I": { "weight": 4, "grade-point": "3-0-2" }
+    }
+  },
+  "Civil Engineering": {
+    "3": {
+      "Mathematics - III": { "weight": 4, "grade-point": "3-1-0" },
+      "Engineering Mechanics": { "weight": 4, "grade-point": "3-1-0" },
+      "Basic Electronics and Engineering": { "weight": 4, "grade-point": "3-0-2" },
+      "Mechanics of Solid": { "weight": 3, "grade-point": "2-1-0" },
+      "Introduction to Fluid Mechanics": { "weight": 3, "grade-point": "2-0-2" },
+      "Surveying and Geomatics": { "weight": 3, "grade-point": "2-0-2" },
+      "Geotechnical Engineering - I": { "weight": 3, "grade-point": "2-0-2" },
+      "Transporation Engineering - I": { "weight": 3, "grade-point": "2-0-2" },
+      "Environmental Engineering - I": { "weight": 3, "grade-point": "2-0-2" }
     }
   }
 }
