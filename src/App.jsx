@@ -281,35 +281,17 @@ const App = () => {
           {Object.entries(finalGrades).map(([subject, mark]) => {
             let grade;
             let gradeColor;
-
-            // Calculate grade based on marks
-            if (mark > 83) {
-              grade = "S";
-              gradeColor = "gold"; // Gold for 'S'
-            } else if (mark > 73) {
-              grade = "A";
-              gradeColor = "blue"; // Blue for 'A'
-            } else if (mark > 63) {
-              grade = "B";
-              gradeColor = "green"; // Green for 'B'
-            } else if (mark > 53) {
-              grade = "C";
-              gradeColor = "orange"; // Orange for 'C'
-            } else if (mark > 43) {
-              grade = "D";
-              gradeColor = "yellow"; // Yellow for 'D'
-            } else if (mark > 33) {
-              grade = "E";
-              gradeColor = "purple"; // Purple for 'E'
-            } else {
-              grade = "F";
-              gradeColor = "red"; // Red for 'F'
-            }
+            if (mark > 83) grade = "S";
+            else if (mark > 73) grade = "A";
+            else if (mark > 63) grade = "B";
+            else if (mark > 53) grade = "C";
+            else if (mark > 43) grade = "D";
+            else if (mark > 33) grade = "E";
+            else grade = "F"; // Mark less than or equal to 33 gets F
 
             return (
               <p key={subject}>
-                {subject}: {mark}{" "}
-                <span style={{ color: gradeColor }}>(Grade: {grade})</span>
+                {subject}: {mark} ({grade})
               </p>
             );
           })}
