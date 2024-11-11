@@ -1,8 +1,14 @@
-# React + Vite
+# [Nerist CGPA](https://nerist-cgpa.netlify.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ever wondered how to calculate the CGPA or SGPA for Nerist? The formula is available on the `Academic Bye - Laws`. This website aims to make this process easier. I have always wanted to see how much marks, I need to get to get a certain grade. I have made a python implementaion but a website is just more universal.
 
-Currently, two official plugins are available:
+## Run Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+git clone https://github.com/chkg2a/nerist-cgpa &&
+cd nerist-cgpa && npm install && npm run dev
+
+```
+## Contribute
+
+You can contribute your subjects to the src/subjects.json if it's missing. Also Thanks for considering to contribute :)
