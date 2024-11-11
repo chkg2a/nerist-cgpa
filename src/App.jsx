@@ -126,7 +126,6 @@ const App = () => {
       : 0;
     setCgpa(calculatedCGPA);
 
-    // Save results only if CGPA is valid
     if (calculatedCGPA) {
       saveResults(calculatedCGPA);
     }
