@@ -1,0 +1,38 @@
+{
+  "Computer Science Engineering": {
+    "1": {
+      "Maths": { "weight": 4, "grade-point": "3-1-0" },
+      "Programming": { "weight": 5, "grade-point": "3-0-4" }
+    },
+    "2": {
+      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
+      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
+    },
+    "3": {
+      "Maths": { "weight": 4, "grade-point": "3-1-0" },
+      "Data Structures & Algorithms": { "weight": 5, "grade-point": "3-0-4" },
+      "Programming Tools and Techniques": { "weight": 4, "grade-point": "2-0-4" },
+      "Basic Electronics and Engineering": { "weight": 4, "grade-point": "3-0-2" },
+      "Digital Logic and Designs": { "weight": 4, "grade-point": "3-0-2" },
+      "Engineering Mechanics": { "weight": 4, "grade-point": "3-1-0" }
+    },
+    "4": {
+      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
+      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
+    },
+    "5": {
+      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
+      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
+    },
+    "6": {
+      "Data Structures": { "weight": 5, "grade-point": "3-0-4" },
+      "Algorithms": { "weight": 4, "grade-point": "3-0-2" }
+    }
+  },
+  "Mechanical Engineering": {
+    "1": {
+      "Mechanics": { "weight": 4, "grade-point": "3-1-0" },
+      "Thermodynamics": { "weight": 4, "grade-point": "3-1-0" }
+    }
+  }
+}
