@@ -1,5 +1,5 @@
 <div align="center">
-    <img height="200" src="yo.png" alt="Increase Imager logo" />
+    <img height="200" src="public/yo.png" alt="Increase Imager logo" />
 </div>
 <a href="https://nerist-cgpa.netlify.app/" target="_blank" align="center">Nerist CGPA Calculator</a>
 
