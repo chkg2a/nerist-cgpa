@@ -17,7 +17,7 @@ const ResultsDisplay = ({ finalGrades, cgpa }) => (
         </p>
       );
     })}
-    <h4>CGPA: {cgpa}</h4>
+    <h4>SGPA: {cgpa}</h4>
     <h4>Percentage: {(cgpa * 10 - 5).toFixed(2)}%</h4>
   </div>
 );
