@@ -30,6 +30,40 @@
       "Computer Organization and Architecture": { "weight": 5, "grade-point": "3-1-2" },
       "Programming in Java": { "weight": 4, "grade-point": "2-0-4" },
       "Design and Analysis of Algorithms": { "weight": 5, "grade-point": "3-0-4" }
+    },
+    "5": {
+      "Principles of Economics": { "weight": 3, "grade-point": "3-0-0" },
+      "Essence of Indian Knowledge and Tradition (Audit)": { "weight": 0, "grade-point": "2-0-0" },
+      "Signals and Systems": { "weight": 3, "grade-point": "2-1-0" },
+      "Database Management Systems": { "weight": 5, "grade-point": "3-1-2" },
+      "Formal Language and Automata Theory": { "weight": 3, "grade-point": "3-0-0" },
+      "Operating Systems": { "weight": 5, "grade-point": "3-1-2" },
+      "Microprocessors": { "weight": 4, "grade-point": "3-0-2" },
+      "Study Tour (Audit)": { "weight": 0, "grade-point": "0-0-0" }
+    },
+    "6": {
+      "Organizational Behaviour": { "weight": 3, "grade-point": "3-0-0" },
+      "Open Elective - I (From MOOC)": { "weight": 3, "grade-point": "3-0-0" },
+      "Programme Elective - I": { "weight": 3, "grade-point": "3-0-0" },
+      "Programme Elective - II": { "weight": 3, "grade-point": "3-0-0" },
+      "Compiler Design": { "weight": 5, "grade-point": "3-1-2" },
+      "Computer Networks": { "weight": 5, "grade-point": "3-1-2" },
+      "Seminar": { "weight": 1, "grade-point": "0-0-2" }
+    },
+    "7": {
+      "Open Elective - II": { "weight": 3, "grade-point": "3-0-0" },
+      "Programme Elective - III": { "weight": 3, "grade-point": "3-0-0" },
+      "Programme Elective - IV": { "weight": 3, "grade-point": "3-0-0" },
+      "Project - I": { "weight": 3, "grade-point": "0-0-6" },
+      "Industrial Training": { "weight": 3, "grade-point": "0-0-0" }
+    },
+    "8": {
+      "Open Elective - III (From MOOC)": { "weight": 3, "grade-point": "3-0-0" },
+      "Open Elective - IV": { "weight": 3, "grade-point": "3-0-0" },
+      "Programme Elective - V": { "weight": 3, "grade-point": "3-0-0" },
+      "Programme Elective - VI": { "weight": 3, "grade-point": "3-0-0" },
+      "Project - II": { "weight": 6, "grade-point": "0-0-12" },
+      "Extra-Curricular Activities and Discipline": { "weight": 2, "grade-point": "0-0-0" }
     }
   },
   "Electronics and Communication Engineering": {
