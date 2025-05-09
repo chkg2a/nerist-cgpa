@@ -143,37 +143,60 @@ const App = () => {
   };
 
   return (
-    <div className="w-screen container mt-4">
-      <h1 className="text-center">Grade Calculator</h1>
-      <div className="flex justify-center items-center">
-        <a
-          href="https://github.com/chkg2a/nerist-cgpa"
-          className="md:absolute top-10 right-10 text-black no-underline hover:text-black focus:text-black active:text-black text-6xl"
-        >
-          <FaGithub />
-        </a>
+    <div className="flex w-screen justify-center">
+      <div className="mt-4 w-[80%]">
+        <h1 className="text-center">Grade Calculator</h1>
+        <div className="flex justify-center items-center">
+          <a
+            href="https://github.com/chkg2a/nerist-cgpa"
+            className="md:absolute top-10 right-10 text-black no-underline hover:text-black focus:text-black active:text-black text-6xl"
+          >
+            <FaGithub />
+          </a>
+        </div>
+        <DisciplineSelector
+          discipline={discipline}
+          semester={semester}
+          setDiscipline={setDiscipline}
+          setSemester={setSemester}
+          subjectsData={subjectsData}
+        />
+        <SubjectsList
+          subjects={subjects}
+          marks={marks}
+          handleInputChange={handleInputChange}
+        />
+        <div className="mt-3">
+          <button onClick={fillMaxMarks} className="btn btn-secondary mr-3">
+            Max
+          </button>
+          <button onClick={calculateFinalMarks} className="btn btn-primary">
+            Calculate
+          </button>
+        </div>
+        {cgpa && <ResultsDisplay finalGrades={finalGrades} cgpa={cgpa} />}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Weight Distribution</h2>
+          <table className="min-w-full border border-gray-300">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border p-2">Grade Points</th>
+                <th className="border p-2">Theory</th>
+                <th className="border p-2">Practical</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(weightDistribution).map(([key, values]) => (
+                <tr key={key}>
+                  <td className="border p-2">{key}</td>
+                  <td className="border p-2">{values[0]}</td>
+                  <td className="border p-2">{values[1]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <DisciplineSelector
-        discipline={discipline}
-        semester={semester}
-        setDiscipline={setDiscipline}
-        setSemester={setSemester}
-        subjectsData={subjectsData}
-      />
-      <SubjectsList
-        subjects={subjects}
-        marks={marks}
-        handleInputChange={handleInputChange}
-      />
-      <div className="mt-3">
-        <button onClick={fillMaxMarks} className="btn btn-secondary mr-3">
-          Max
-        </button>
-        <button onClick={calculateFinalMarks} className="btn btn-primary">
-          Calculate
-        </button>
-      </div>
-      {cgpa && <ResultsDisplay finalGrades={finalGrades} cgpa={cgpa} />}
     </div>
   );
 };

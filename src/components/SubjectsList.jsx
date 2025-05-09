@@ -9,6 +9,7 @@ const SubjectsList = ({ subjects, marks, handleInputChange }) => (
           subject={subject}
           marks={marks}
           handleInputChange={handleInputChange}
+          weight={subjects[subject]?.["weight"]}
           gradePoint={subjects[subject]?.["grade-point"]}
         />
       </div>
