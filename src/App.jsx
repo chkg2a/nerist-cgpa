@@ -20,6 +20,7 @@ const App = () => {
   const [finalGrades, setFinalGrades] = useState({});
   const [sgpa, setSgpa] = useState(null);
 
+  // Safely hydrate application state from local storage on initial render mount
   useEffect(() => {
     const savedResults = JSON.parse(localStorage.getItem("gradeResults"));
     if (savedResults) {
@@ -33,6 +34,7 @@ const App = () => {
     }
   }, []);
 
+  // Update syllabus listings when filter context options change
   useEffect(() => {
     if (module && discipline && semester) {
       setSubjects(subjectsData[module]?.[discipline]?.[semester] || {});
@@ -83,8 +85,14 @@ const App = () => {
   const calculateFinalMarks = () => {
     const computedFinalMarks = {};
     Object.entries(subjects).forEach(([subject, details]) => {
+      
+      // If direct grade override exists, save that structure directly 
       if (overrideGrades[subject]) {
-        computedFinalMarks[subject] = overrideGrades[subject]; 
+        computedFinalMarks[subject] = {
+          mode: "override",
+          score: null,
+          grade: overrideGrades[subject]
+        };
         return;
       }
 
@@ -105,7 +113,11 @@ const App = () => {
       else if (numericalScore >= 45) computedGrade = "D";
       else if (numericalScore >= 35) computedGrade = "E";
 
-      computedFinalMarks[subject] = computedGrade;
+      computedFinalMarks[subject] = {
+        mode: "calculated",
+        score: numericalScore,
+        grade: computedGrade
+      };
     });
 
     setFinalGrades(computedFinalMarks);
@@ -117,9 +129,9 @@ const App = () => {
     let totalEarnedPoints = 0;
     let totalSemesterCredits = 0;
 
-    Object.entries(finalGrades).forEach(([subject, gradeOrScore]) => {
+    Object.entries(finalGrades).forEach(([subject, dataObject]) => {
       const credit = subjects[subject]?.weight ?? 0;
-      const finalLetter = typeof gradeOrScore === "string" ? gradeOrScore : "F";
+      const finalLetter = dataObject?.grade || "F";
       
       totalEarnedPoints += (gradesScale[finalLetter] ?? 0) * credit;
       totalSemesterCredits += credit;
@@ -128,94 +140,96 @@ const App = () => {
     const calculatedSGPA = totalSemesterCredits ? (totalEarnedPoints / totalSemesterCredits).toFixed(2) : "0.00";
     setSgpa(calculatedSGPA);
     
+    // Save state directly to local storage
     localStorage.setItem("gradeResults", JSON.stringify({ 
-      module, discipline, semester, marks, overrideGrades, finalGrades, sgpa: calculatedSGPA 
+      module, 
+      discipline, 
+      semester, 
+      marks, 
+      overrideGrades, 
+      finalGrades, 
+      sgpa: calculatedSGPA 
     }));
   }, [finalGrades, subjects, module, discipline, semester, marks, overrideGrades]);
 
   return (
-    // Fluid, borderless layout row framework spanning 100% viewport width
     <div className="container-fluid min-vh-screen bg-light p-3 p-md-4 m-0" style={{ maxWidth: "100%", width: "100%" }}>
-      
-      {/* Header Block Section */}
-      <header className="card p-4 border-0 shadow-sm rounded-3 mb-4 bg-white row mx-0 w-100 align-items-center justify-content-between">
-        <div className="col-auto px-0">
-          <h1 className="h3 fw-bold text-primary mb-1">NERIST Smart Grade Portal</h1>
-          <span className="text-secondary d-block fs-6">Precision Credit Weighting & Multi-Term Estimation Framework</span>
-        </div>
-        <div className="col-auto px-0">
-          <a href="https://github.com/chkg2a/nerist-cgpa" target="_blank" rel="noreferrer" className="text-dark fs-2">
-            <FaGithub />
-          </a>
-        </div>
-      </header>
+      <div className="container-fluid w-100 m-0 p-0">
+        
+        <header className="card p-4 border-0 shadow-sm rounded-3 mb-4 bg-white row mx-0 w-100 align-items-center justify-content-between">
+          <div className="col-auto px-0">
+            <h1 className="h3 fw-bold text-primary mb-1">NERIST Smart Grade Portal</h1>
+            <span className="text-secondary d-block fs-6">Precision Credit Weighting & Local Data Storage Storage Framework</span>
+          </div>
+          <div className="col-auto px-0">
+            <a href="https://github.com/chkg2a/nerist-cgpa" target="_blank" rel="noreferrer" className="text-dark fs-2">
+              <FaGithub />
+            </a>
+          </div>
+        </header>
 
-      {/* Frame Filter Selector Card */}
-      <section className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4 mx-0 w-100">
-        <h2 className="h6 fw-bold text-dark text-uppercase mb-3 border-bottom pb-2 tracking-wide">Academic Frame Configuration</h2>
-        <DisciplineSelector
-          module={module} setModule={setModule}
-          discipline={discipline} setDiscipline={setDiscipline}
-          semester={semester} setSemester={setSemester}
-          subjectsData={subjectsData}
-        />
-      </section>
+        <section className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4 mx-0 w-100">
+          <h2 className="h6 fw-bold text-dark text-uppercase mb-3 border-bottom pb-2 tracking-wide">Academic Frame Configuration</h2>
+          <DisciplineSelector
+            module={module} setModule={setModule}
+            discipline={discipline} setDiscipline={setDiscipline}
+            semester={semester} setSemester={setSemester}
+            subjectsData={subjectsData}
+          />
+        </section>
 
-      {/* Main Operational Workspace Row */}
-      {module && discipline && semester ? (
-        <div className="row g-4 mx-0 w-100">
-          {/* Active Evaluation Cards List Space */}
-          <div className="col-12 col-lg-7 col-xl-8 px-0 pe-lg-2">
-            <div className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4 w-100">
-              <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-4 gap-2">
-                <div>
-                  <h3 className="h5 fw-bold text-dark mb-0 text-uppercase">Course Evaluation Matrix</h3>
-                  <small className="text-muted">Enter marks or directly choose individual subject final grades.</small>
+        {module && discipline && semester ? (
+          <div className="row g-4 mx-0 w-100">
+            <div className="col-12 col-lg-7 col-xl-8 px-0 pe-lg-2">
+              <div className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4 w-100">
+                <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-4 gap-2">
+                  <div>
+                    <h3 className="h5 fw-bold text-dark mb-0 text-uppercase">Course Evaluation Matrix</h3>
+                    <small className="text-muted">Changes are automatically saved locally upon calculation compilation.</small>
+                  </div>
+                  <button onClick={fillMaxMarks} className="btn btn-md btn-outline-secondary px-4 rounded-pill fw-bold">
+                    Auto-Fill All Max Marks
+                  </button>
                 </div>
-                <button onClick={fillMaxMarks} className="btn btn-md btn-outline-secondary px-4 rounded-pill fw-bold">
-                  Auto-Fill All Max Marks
+                
+                <SubjectsList 
+                  subjects={subjects} 
+                  marks={marks} 
+                  overrideGrades={overrideGrades}
+                  handleInputChange={handleInputChange} 
+                  handleGradeOverride={handleGradeOverride}
+                />
+
+                <button onClick={calculateFinalMarks} className="btn btn-primary w-100 py-3 fs-5 fw-bold rounded-3 shadow-sm mt-3">
+                  Compile Active Semester Report
                 </button>
               </div>
               
-              <SubjectsList 
-                subjects={subjects} 
-                marks={marks} 
-                overrideGrades={overrideGrades}
-                handleInputChange={handleInputChange} 
-                handleGradeOverride={handleGradeOverride}
-              />
-
-              <button onClick={calculateFinalMarks} className="btn btn-primary w-100 py-3 fs-5 fw-bold rounded-3 shadow-sm mt-3">
-                Compile Active Semester Report
-              </button>
+              {sgpa && <ResultsDisplay finalGrades={finalGrades} sgpa={sgpa} marks={marks} />}
             </div>
-            
-            {sgpa && <ResultsDisplay finalGrades={finalGrades} sgpa={sgpa} />}
-          </div>
 
-          {/* Right Target Prediction Matrix Module */}
-          <div className="col-12 col-lg-5 col-xl-4 px-0">
-            <CGPAPredictor 
-              module={module}
-              discipline={discipline}
-              currentSemester={semester} 
-              currentSGPA={sgpa} 
-              subjectsData={subjectsData}
-            />
+            <div className="col-12 col-lg-5 col-xl-4 px-0">
+              <CGPAPredictor 
+                module={module}
+                discipline={discipline}
+                currentSemester={semester} 
+                currentSGPA={sgpa} 
+                subjectsData={subjectsData}
+              />
+            </div>
           </div>
-        </div>
-      ) : (
-        // Full Width Initial Fallback State Jumbotron Card
-        <div className="card p-5 text-center border-0 shadow-sm rounded-3 bg-white mx-0 w-100">
-          <div className="py-5">
-            <h3 className="h4 fw-bold text-secondary mb-2">Awaiting Framework Parameters</h3>
-            <p className="text-muted mb-0 mx-auto fs-6" style={{ maxWidth: "600px" }}>
-              Please select your Academic Module, Discipline Branch, and tracking term Semester within the top section to display the configuration tables.
-            </p>
+        ) : (
+          <div className="card p-5 text-center border-0 shadow-sm rounded-3 bg-white mx-0 w-100">
+            <div className="py-5">
+              <h3 className="h4 fw-bold text-secondary mb-2">Awaiting Framework Parameters</h3>
+              <p className="text-muted mb-0 mx-auto fs-6" style={{ maxWidth: "600px" }}>
+                Please select your Academic Module, Discipline Branch, and tracking term Semester within the top section to display the configuration tables.
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
+      </div>
     </div>
   );
 };
