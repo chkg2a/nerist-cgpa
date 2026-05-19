@@ -491,6 +491,123 @@
       "grade-point": "0-0-0"
     }
   }
+},
+"Electronics and Communication Engineering": {
+  "1": {
+    "Remedial English – I": {
+      "weight": 3,
+      "grade-point": "2-0-2"
+    },
+    "Physics – I": {
+      "weight": 4,
+      "grade-point": "3-0-2"
+    },
+    "Chemistry – I": {
+      "weight": 4,
+      "grade-point": "3-0-2"
+    },
+    "Mathematics – I": {
+      "weight": 4,
+      "grade-point": "3-1-0"
+    },
+    "Engineering Drawing": {
+      "weight": 3,
+      "grade-point": "0-0-6"
+    },
+    "Workshop Practice": {
+      "weight": 2,
+      "grade-point": "0-0-4"
+    }
+  },
+
+  "2": {
+    "Remedial English – II": {
+      "weight": 3,
+      "grade-point": "2-0-2"
+    },
+    "Physics – II": {
+      "weight": 4,
+      "grade-point": "3-0-2"
+    },
+    "Chemistry – II": {
+      "weight": 3,
+      "grade-point": "2-0-2"
+    },
+    "Mathematics – II": {
+      "weight": 4,
+      "grade-point": "3-1-0"
+    },
+    "Basic Electrical and Electronics Engineering": {
+      "weight": 4,
+      "grade-point": "3-0-2"
+    },
+    "Electronics Workshop – I": {
+      "weight": 3,
+      "grade-point": "1-0-4"
+    }
+  },
+
+  "3": {
+    "Mathematics – III": {
+      "weight": 4,
+      "grade-point": "3-1-0"
+    },
+    "Basics of Computer and Programming": {
+      "weight": 3,
+      "grade-point": "2-0-2"
+    },
+    "Principles of Electronics Circuits and Devices": {
+      "weight": 4,
+      "grade-point": "2-1-2"
+    },
+    "Fundamentals of Telecommunication Engineering": {
+      "weight": 4,
+      "grade-point": "3-0-2"
+    },
+    "Electronics Workshop – II": {
+      "weight": 3,
+      "grade-point": "0-0-6"
+    },
+    "Electronic Servicing and Maintenance – I": {
+      "weight": 3,
+      "grade-point": "0-0-6"
+    }
+  },
+
+  "4": {
+    "Technical Mechanics": {
+      "weight": 4,
+      "grade-point": "3-1-0"
+    },
+    "Radio Engineering": {
+      "weight": 4,
+      "grade-point": "3-0-2"
+    },
+    "Consumer Electronics": {
+      "weight": 3,
+      "grade-point": "3-0-0"
+    },
+    "Electronic Servicing and Maintenance – II": {
+      "weight": 2,
+      "grade-point": "0-0-4"
+    },
+    "Fundamentals of Entrepreneurship": {
+      "weight": 3,
+      "grade-point": "3-0-0"
+    },
+    "Essence of Indian Traditional Knowledge (Audit)": {
+      "weight": 0,
+      "grade-point": "2-0-0"
+    },
+    "Winter Internship": {
+      "weight": 3,
+      "grade-point": "0-0-0"
+    },
+    "Extra-Curricular Activities and Discipline": {
+      "weight": 2,
+      "grade-point": "0-0-0"
+    }
+  }
 }
 
   },
