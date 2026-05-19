@@ -3,7 +3,7 @@ import React from "react";
 const SubjectInput = ({ subject, marks, weight, overrideGrades, handleInputChange, handleGradeOverride, gradePoint }) => {
   const currentOverride = overrideGrades[subject] || "";
 
-  // Dynamic CSS injector to strip browser numeric spin buttons
+  // Dynamic CSS injector to strip out browser numeric spin button arrows
   const noSpinStyle = `
     .no-spinners::-webkit-outer-spin-button,
     .no-spinners::-webkit-inner-spin-button {
@@ -20,20 +20,19 @@ const SubjectInput = ({ subject, marks, weight, overrideGrades, handleInputChang
       <style>{noSpinStyle}</style>
       
       {/* Header Info Section */}
-      <div className="row align-items-center g-3 mb-3">
-        <div className="col-12 col-md-8">
-          <h4 className="h5 fw-bold text-dark mb-1">{subject}</h4>
-          <span className="badge bg-secondary font-monospace me-2" style={{ fontSize: '0.8rem' }}>L-T-P: {gradePoint || "0-0-0"}</span>
-          <span className="badge bg-dark font-monospace" style={{ fontSize: '0.8rem' }}>Credits: {weight}</span>
+      <div className="row align-items-center g-3 mb-4 m-0 w-100">
+        <div className="col-12 col-md-8 p-0">
+          <h4 className="h4 fw-bold text-dark mb-1">{subject}</h4>
+          <span className="badge bg-secondary font-monospace me-2 p-2" style={{ fontSize: '0.85rem' }}>L-T-P: {gradePoint || "0-0-0"}</span>
+          <span className="badge bg-dark font-monospace p-2" style={{ fontSize: '0.85rem' }}>Credits: {weight}</span>
         </div>
         
         {/* Direct Selection Dropdown Overrider */}
-        <div className="col-12 col-md-4 text-md-start">
+        <div className="col-12 col-md-4 p-0 text-md-end">
           <div className="d-flex align-items-center justify-content-start justify-content-md-end gap-2">
-            <span className="small fw-bold text-primary text-nowrap">Direct Grade:</span>
+            <span className="small fw-bold text-primary text-nowrap fs-5">Direct Grade:</span>
             <select 
-              className="form-select border-primary font-monospace fw-bold text-center" 
-              style={{ maxWidth: "180px" }}
+              className="md:w-[300px] maxform-select form-select-lg border-primary font-monospace fw-bold text-center py-2 bg-blue-200" 
               value={currentOverride}
               onChange={(e) => handleGradeOverride(subject, e.target.value)}
             >
@@ -50,69 +49,60 @@ const SubjectInput = ({ subject, marks, weight, overrideGrades, handleInputChang
         </div>
       </div>
 
-      {/* Inputs Matrix - Re-engineered to stack vertically on mobile and go full-width horizontal on desktop */}
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-3 w-100 m-0">
+      {/* Inputs Matrix - Maintained strictly as vertically stacked rows with large paddings */}
+      <div className="d-flex flex-column gap-3 w-100 p-0 m-0">
         
-        {/* Mid-Sem Input */}
-        <div className="col p-1">
-          <div className="bg-white border rounded p-3 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 shadow-xs w-100">
-            <span className="small fw-bold text-muted text-uppercase mb-0">Mid-Sem</span>
-            <div className="input-group w-100" style={{ maxWidth: "100%", smMaxWidth: "140px" }}>
-              <input type="number" min="0" max="30" className="form-control text-center font-monospace fw-bold no-spinners py-2" value={marks.MidSemExam?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "MidSemExam", subject)} disabled={currentOverride !== ""} placeholder="0" />
-              <span className="input-group-text bg-light text-muted font-monospace small">/30</span>
-            </div>
+        {/* Mid-Sem Input Block */}
+        <div className="w-100 bg-white border rounded p-3 d-flex align-items-center justify-content-between shadow-xs">
+          <span className="h5 fw-bold text-secondary text-uppercase mb-0 tracking-wide">Mid-Sem</span>
+          <div className="input-group input-group-lg" style={{ maxWidth: "160px" }}>
+            <input type="number" min="0" max="30" className="form-control text-center font-monospace fw-bold no-spinners fs-4 py-2.5" value={marks.MidSemExam?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "MidSemExam", subject)} disabled={currentOverride !== ""} placeholder="0" />
+            <span className="input-group-text bg-light text-muted font-monospace fw-bold fs-5 px-3">/30</span>
           </div>
         </div>
         
-        {/* End-Sem Input */}
-        <div className="col p-1">
-          <div className="bg-white border rounded p-3 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 shadow-xs w-100">
-            <span className="small fw-bold text-muted text-uppercase mb-0">End-Sem</span>
-            <div className="input-group w-100" style={{ maxWidth: "100%", smMaxWidth: "140px" }}>
-              <input type="number" min="0" max="50" className="form-control text-center font-monospace fw-bold no-spinners py-2" value={marks.EndSemExam?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "EndSemExam", subject)} disabled={currentOverride !== ""} placeholder="0" />
-              <span className="input-group-text bg-light text-muted font-monospace small">/50</span>
-            </div>
+        {/* End-Sem Input Block */}
+        <div className="w-100 bg-white border rounded p-3 d-flex align-items-center justify-content-between shadow-xs">
+          <span className="h5 fw-bold text-secondary text-uppercase mb-0 tracking-wide">End-Sem</span>
+          <div className="input-group input-group-lg" style={{ maxWidth: "160px" }}>
+            <input type="number" min="0" max="50" className="form-control text-center font-monospace fw-bold no-spinners fs-4 py-2.5" value={marks.EndSemExam?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "EndSemExam", subject)} disabled={currentOverride !== ""} placeholder="0" />
+            <span className="input-group-text bg-light text-muted font-monospace fw-bold fs-5 px-3">/50</span>
           </div>
         </div>
         
-        {/* Quiz Test Input */}
-        <div className="col p-1">
-          <div className="bg-white border rounded p-3 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 shadow-xs w-100">
-            <span className="small fw-bold text-muted text-uppercase mb-0">Quiz Test</span>
-            <div className="input-group w-100" style={{ maxWidth: "100%", smMaxWidth: "140px" }}>
-              <input type="number" min="0" max="10" className="form-control text-center font-monospace fw-bold no-spinners py-2" value={marks.Quiz?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "Quiz", subject)} disabled={currentOverride !== ""} placeholder="0" />
-              <span className="input-group-text bg-light text-muted font-monospace small">/10</span>
-            </div>
+        {/* Quiz Test Input Block */}
+        <div className="w-100 bg-white border rounded p-3 d-flex align-items-center justify-content-between shadow-xs">
+          <span className="h5 fw-bold text-secondary text-uppercase mb-0 tracking-wide">Quiz Test</span>
+          <div className="input-group input-group-lg" style={{ maxWidth: "160px" }}>
+            <input type="number" min="0" max="10" className="form-control text-center font-monospace fw-bold no-spinners fs-4 py-2.5" value={marks.Quiz?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "Quiz", subject)} disabled={currentOverride !== ""} placeholder="0" />
+            <span className="input-group-text bg-light text-muted font-monospace fw-bold fs-5 px-3">/10</span>
           </div>
         </div>
         
-        {/* Teacher Evaluation Input */}
-        <div className="col p-1">
-          <div className="bg-white border rounded p-3 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 shadow-xs w-100">
-            <span className="small fw-bold text-muted text-uppercase mb-0">Tchr Eval</span>
-            <div className="input-group w-100" style={{ maxWidth: "100%", smMaxWidth: "140px" }}>
-              <input type="number" min="0" max="10" className="form-control text-center font-monospace fw-bold no-spinners py-2" value={marks.TeacherEval?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "TeacherEval", subject)} disabled={currentOverride !== ""} placeholder="0" />
-              <span className="input-group-text bg-light text-muted font-monospace small">/10</span>
-            </div>
+        {/* Teacher Evaluation Input Block */}
+        <div className="w-100 bg-white border rounded p-3 d-flex align-items-center justify-content-between shadow-xs">
+          <span className="h5 fw-bold text-secondary text-uppercase mb-0 tracking-wide">Tchr Eval</span>
+          <div className="input-group input-group-lg" style={{ maxWidth: "160px" }}>
+            <input type="number" min="0" max="10" className="form-control text-center font-monospace fw-bold no-spinners fs-4 py-2.5" value={marks.TeacherEval?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "TeacherEval", subject)} disabled={currentOverride !== ""} placeholder="0" />
+            <span className="input-group-text bg-light text-muted font-monospace fw-bold fs-5 px-3">/10</span>
           </div>
         </div>
-      </div>
 
-      {/* Practical Lab Input Block */}
-      {gradePoint?.split("-")[2] !== "0" && gradePoint && (
-        <div className="w-100 p-0 m-0">
-          <div className="bg-white border border-primary-subtle rounded p-3 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 shadow-xs w-100">
-            <span className="small fw-bold text-primary text-uppercase mb-0">Practical Lab Evaluation</span>
-            <div className="input-group w-100" style={{ maxWidth: "100%", smMaxWidth: "140px" }}>
-              <input type="number" min="0" max="50" className="form-control text-center font-monospace fw-bold no-spinners border-primary text-primary py-2" value={marks.PracExam?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "PracExam", subject)} disabled={currentOverride !== ""} placeholder="0" />
-              <span className="input-group-text bg-white text-primary border-primary font-monospace small">/50</span>
+        {/* Practical Lab Evaluation Input Block */}
+        {gradePoint?.split("-")[2] !== "0" && gradePoint && (
+          <div className="w-100 bg-white border border-primary-subtle rounded p-3 d-flex align-items-center justify-content-between shadow-xs">
+            <span className="h5 fw-bold text-primary text-uppercase mb-0 tracking-wide">Practical Lab</span>
+            <div className="input-group input-group-lg" style={{ maxWidth: "160px" }}>
+              <input type="number" min="0" max="50" className="form-control text-center font-monospace fw-bold no-spinners border-primary text-primary fs-4 py-2.5" value={marks.PracExam?.[subject] ?? ""} onChange={(e) => handleInputChange(e, "PracExam", subject)} disabled={currentOverride !== ""} placeholder="0" />
+              <span className="input-group-text bg-white text-primary border-primary font-monospace fw-bold fs-5 px-3">/50</span>
             </div>
           </div>
-        </div>
-      )}
+        )}
+
+      </div>
       
       {currentOverride && (
-        <div className="mt-2 text-primary text-start" style={{ fontSize: '0.85rem', fontWeight: '500' }}>
+        <div className="mt-3 text-primary text-start fs-6 fw-semibold">
           * Evaluation scoring input fields are locked because the direct letter grade <strong>"{currentOverride}"</strong> option is currently chosen.
         </div>
       )}
