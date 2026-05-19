@@ -47,7 +47,6 @@ const App = () => {
   const handleInputChange = (event, examType, subject) => {
     const value = event.target.value === "" ? "" : Number(event.target.value);
     
-    // Wipe direct grade override if user interacts with raw components manually
     if (overrideGrades[subject]) {
       setOverrideGrades(prev => {
         const copy = { ...prev };
@@ -77,14 +76,13 @@ const App = () => {
         maxMarks.PracExam[subject] = maxValues.PracExam;
       }
     });
-    setOverrideGrades({}); // Clear dropdown hardcoding options to let calculations run
+    setOverrideGrades({}); 
     setMarks(maxMarks);
   };
 
   const calculateFinalMarks = () => {
     const computedFinalMarks = {};
     Object.entries(subjects).forEach(([subject, details]) => {
-      // If a user has specified a direct grade override, parse calculations from there
       if (overrideGrades[subject]) {
         computedFinalMarks[subject] = overrideGrades[subject]; 
         return;
@@ -99,7 +97,6 @@ const App = () => {
       
       const numericalScore = Math.round(((normalizedTheoryMarks * theoryWeight) / 100) + ((normalizedPracMarks * pracWeight) / 100));
       
-      // Strict adjusted bound conversions matching your specific criteria
       let computedGrade = "F";
       if (numericalScore >= 85) computedGrade = "S";
       else if (numericalScore >= 75) computedGrade = "A";
@@ -137,16 +134,19 @@ const App = () => {
   }, [finalGrades, subjects, module, discipline, semester, marks, overrideGrades]);
 
   return (
-    <div className="min-vh-screen bg-light py-4 py-md-5">
-      <div className="container-fluid px-2 px-md-5" style={{ maxWidth: "1600px" }}>
+    // Changed to p-0 container setup to let elements layout edge-to-edge
+    <div className="min-vh-screen bg-light w-100 m-0 p-3 p-md-4">
+      {/* Swap container wrapper for container-fluid to span 100% viewport width */}
+      <div className="container-fluid w-100 m-0 p-0">
         
-        <header className="card p-4 border-0 shadow-sm rounded-3 mb-4 bg-white">
-          <div className="row align-items-center justify-content-between g-3">
-            <div className="col-12 col-sm-auto text-center text-sm-start">
+        {/* Full-Width Header */}
+        <header className="card p-4 border-0 shadow-sm rounded-3 mb-4 bg-white w-100">
+          <div className="row align-items-center justify-content-between g-3 m-0 w-100">
+            <div className="col-auto p-0">
               <h1 className="h3 fw-bold text-primary mb-1">NERIST Smart Grade Portal</h1>
               <span className="text-secondary d-block fs-6">Precision Credit Weighting & Multi-Term Estimation Framework</span>
             </div>
-            <div className="col-12 col-sm-auto text-center text-sm-end">
+            <div className="col-auto p-0">
               <a href="https://github.com/chkg2a/nerist-cgpa" target="_blank" rel="noreferrer" className="text-dark fs-2">
                 <FaGithub />
               </a>
@@ -154,7 +154,8 @@ const App = () => {
           </div>
         </header>
 
-        <section className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4">
+        {/* Full-Width Filter Configuration Card */}
+        <section className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4 w-100">
           <h2 className="h6 fw-bold text-dark text-uppercase mb-3 border-bottom pb-2 tracking-wide">Academic Frame Configuration</h2>
           <DisciplineSelector
             module={module} setModule={setModule}
@@ -164,10 +165,12 @@ const App = () => {
           />
         </section>
 
+        {/* Dynamic Structural Grid Workspace */}
         {module && discipline && semester ? (
-          <div className="row g-4">
-            <div className="col-12 col-xl-7">
-              <div className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4">
+          <div className="row g-4 m-0 w-100 row-cols-1 row-cols-xxl-2">
+            {/* Left Evaluation Space - Scaled for 65% width representation on massive panels */}
+            <div className="col-12 col-lg-7 col-xxl-8 p-0 pe-lg-3">
+              <div className="card p-3 p-md-4 border-0 shadow-sm rounded-3 bg-white mb-4 w-100">
                 <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-4 gap-2">
                   <div>
                     <h3 className="h5 fw-bold text-dark mb-0 text-uppercase">Course Evaluation Matrix</h3>
@@ -194,7 +197,8 @@ const App = () => {
               {sgpa && <ResultsDisplay finalGrades={finalGrades} sgpa={sgpa} />}
             </div>
 
-            <div className="col-12 col-xl-5">
+            {/* Right Side Predictor Panel - Formatted cleanly alongside work layouts */}
+            <div className="col-12 col-lg-5 col-xxl-4 p-0">
               <CGPAPredictor 
                 module={module}
                 discipline={discipline}
@@ -205,7 +209,7 @@ const App = () => {
             </div>
           </div>
         ) : (
-          <div className="card p-5 text-center border-0 shadow-sm rounded-3 bg-white">
+          <div className="card p-5 text-center border-0 shadow-sm rounded-3 bg-white w-100">
             <div className="py-5">
               <h3 className="h4 fw-bold text-secondary mb-2">Awaiting Framework Parameters</h3>
               <p className="text-muted mb-0 mx-auto fs-6" style={{ maxWidth: "600px" }}>
